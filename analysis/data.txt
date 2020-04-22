@@ -1,11 +1,3 @@
-warehouses_10_NYTXCT.csv
-warehouses_1_TXout.csv
-warehouses_2.csv
-warehouses_3_CTout.csv
-warehouses_4.csv
-warehouses_5.csv
-warehouses_6.csv
-warehouses_7.csv
-warehouses_8_NYout.csv
-warehouses_9.csv
-warehouses_NY.csv
+warehouses copy.csv
+warehouses.csv
+warehouses_1.csv

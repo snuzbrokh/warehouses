@@ -24,6 +24,12 @@ class WarehousesItem(scrapy.Item):
     buildingSize = scrapy.Field()
 
 
+    highlights = scrapy.Field()
+    spaceSummary = scrapy.Field()
+    spaceBullets = scrapy.Field()
+    propOverview = scrapy.Field()
+    hoodMarket = scrapy.Field()
+
     extraInfo = scrapy.Field()
 
     listingDate = scrapy.Field()
