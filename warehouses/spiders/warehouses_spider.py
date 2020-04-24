@@ -21,8 +21,8 @@ class WarehousesSpider(Spider):
 		'new-mexico', 'new-york', 'north-carolina', 'north-dakota', 'ohio', 'oklahoma', 'oregon', \
 		'pennsylvania', 'rhode-island', 'south-carolina', 'south-dakota', 'tennessee', 'vermont','wyoming',\
 		'wisconsin','west virginia','washington','virginina','utah','texas']
-		n = 2
-		for state in states[n*5:5*(n+1)]:
+		n = 0
+		for state in ['new-mexico','']:
 
 			result_urls = ['https://www.loopnet.com/{}_warehouses-for-lease/{}/'.format(state,i) for i in range(1,21)]
 			for url in result_urls:

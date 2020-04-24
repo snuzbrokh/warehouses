@@ -4,13 +4,6 @@ import re
 from ast import literal_eval as make_tuple
 from collections import defaultdict
 
-
-
-#buildingSize:
-#city:
-#extraInfo:
-
-#price:
 def rate_clean(rate):
 
 # '''
@@ -42,7 +35,10 @@ def amenities_clean(amen):
 		return amen.split(',')
 
 def size_clean(size):
-	return int(size.replace(',','').replace(' SF',''))
+	try:
+		return int(size.replace(',','').replace(' SF',''))
+	except:
+		pass
 
 def spaceAvail_clean(space):
 	space = space.replace(' SF','').replace(',','').split(' - ')
@@ -92,8 +88,13 @@ def transport_clean(transport):
 			else:
 				dist = float(dist.replace(' mi',''))
 				time = float(time.replace(' min drive',''))
-
-			tran_dic[trans] = [dist,time, round(dist/time*60,1)]
+				# Calculate speed. Time in listing is always presented in minutes. 
+				speed = round(dist/time*60,1)
+				# Filter out wrong information. Top truck speed limit is 75MPH on some rural highways
+				if speed <= 75.0:
+					tran_dic[trans] = [dist,time, speed]
+				else:
+					continue
 			
 		except:
 			continue
@@ -164,11 +165,6 @@ def find_loading(text):
 def clean(df):
 	df.drop_duplicates(inplace=True, keep=False)
 
-	# Create a temporary total summary column
-	df_ = df[['highlights','hoodMarket','spaceSummary','spaceBullets','propOverview']]
-	df_['total'] = df_['highlights'] + ' ' + df_['spaceSummary'] + ' ' \
-					+ df_['spaceBullets'] + ' ' + df_['propOverview'] + ' ' + df_['hoodMarket']
-
 
 	#amenities
 	df['amenities'] = df['amenities'].map(lambda amen: amenities_clean(amen))
@@ -212,9 +208,10 @@ def clean(df):
 	df['numDriveIns'] = df_.total.apply(lambda text: find_driveIn(text))
 	df['numLoadingDocks'] = df_.total.apply(lambda text: find_loading(text))
 	df['propInfo'] = df_['total'].replace('\n','')
+	df['address'] = df['address'] + ' ' + df['city'] + ', ' + df['state'] + ' USA'
 
 
-	to_drop = ['listingID', 'status','extraInfo']#'highlights','hoodMarket','spaceSummary','spaceBullets','propOverview']
+	to_drop = ['listingID', 'status','extraInfo', 'highlights','hoodMarket','spaceSummary','spaceBullets','propOverview']
 	df.drop(columns = to_drop, inplace = True)
 
 	# df.columns = ['Address','Amenities','BuildingSize','City','ListingDate',\
@@ -229,4 +226,4 @@ def clean(df):
 
 
 
-	return df#.dropna()
+	return df.reset_index(drop=True)
