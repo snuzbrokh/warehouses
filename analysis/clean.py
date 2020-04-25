@@ -127,8 +127,8 @@ def find_height(text):
 	# Patterns that ceiling heights have been found in
     height_patterns = [r'([1-3][0-9])\' [Ee]ave', \
             r'([1-3][0-9])\' [Hh]eight',\
-            r'([1-3][0-9]) foot',\
-            r'([1-3][0-9])\' [Cc]lear', \
+            r'([1-3][0-9])[ -]?foot',\
+            r'([1-3][0-9])\'\+? [Cc]lear', \
             r'([1-3][0-9])\'\s?-([1-3][0-9])\''\
             r'([1-3][0-9])\''
            ]
@@ -141,33 +141,13 @@ def find_height(text):
                 return int(g[0][1])
             else:
                 return int(g[0])
-        # If no ceiling found, use default ceiling height of 10 foot. 
-        return 10
-            
-def find_driveIn(text):
-    drive_patterns = [r'(\d+) [Dd]rive [Ii]n']
-    for pattern in drive_patterns:
-        g = re.findall(pattern,text)
-        if g:
-            return int(g[0])
-    return 1
-
-            
-def find_loading(text):
-    drive_patterns = [r'(\d+) [Ll]oading']
-    for pattern in drive_patterns:
-        g = re.findall(pattern,text)
-        if g:
-            return int(g[0])
-    return 1
+        # If no ceiling found, use default ceiling height of 16 foot. 
+        return 16
 
 
 def clean(df):
 	df.drop_duplicates(inplace=True, keep=False)
 
-
-	#amenities
-	df['amenities'] = df['amenities'].map(lambda amen: amenities_clean(amen))
 	#buildingSize
 	df['buildingSize'] = df['buildingSize'].map(lambda size: size_clean(size))
 
@@ -197,33 +177,22 @@ def clean(df):
 
 	# Section for data derived from scraped data
 	# Create a temporary total summary column
-	df_ = df[['highlights','hoodMarket','spaceSummary','spaceBullets','propOverview']]
-	df_ = df_.fillna('')
-	df_['total'] = df_['highlights'] + '\n' + df_['spaceSummary'] + '\n' \
-						+ df_['spaceBullets'] + '\n' + df_['propOverview'] + \
-						'\n' + df_['hoodMarket']
+	df_ = df[['highlights','hoodMarket','spaceSummary','spaceBullets','propOverview','amenities']].fillna('')
+	df_['total'] =  df_['highlights'] + ' ' +\
+					df_['spaceSummary'] + ' ' +\
+					df_['spaceBullets'] + ' ' +\
+					df_['propOverview'] + ' ' +\
+					df_['hoodMarket'] + ' ' +\
+					df_['amenities']
 
-	df['ceilingHeight'] = df_.total.apply(lambda text: find_height(text))
+	df['propInfo'] = df_['total'].replace(r'\n',' ', regex=True).replace(',','').str.lower()
+	df['ceilingHeight'] = df.propInfo.apply(lambda text: find_height(text))
 
-	df['numDriveIns'] = df_.total.apply(lambda text: find_driveIn(text))
-	df['numLoadingDocks'] = df_.total.apply(lambda text: find_loading(text))
-	df['propInfo'] = df_['total'].replace('\n','')
-	df['address'] = df['address'] + ' ' + df['city'] + ', ' + df['state'] + ' USA'
+	df['address'] = df['address'] + ' ' + df['city'] + ', ' + df['state']
 
 
-	to_drop = ['listingID', 'status','extraInfo', 'highlights','hoodMarket','spaceSummary','spaceBullets','propOverview']
+	to_drop = ['listingID', 'status','extraInfo', 'highlights','amenities','hoodMarket','spaceSummary','spaceBullets','propOverview']
 	df.drop(columns = to_drop, inplace = True)
-
-	# df.columns = ['Address','Amenities','BuildingSize','City','ListingDate',\
-	# 			'Rate','PropertyType','AvailableSpace','NumSpaces','State','SubType', \
-	# 			'Transport','Utilities','YearBuilt','YearRenovated']
-
-
-
-	# df = df[['Address','City','State','Rate','BuildingSize','AvailableSpace','NumSpaces',\
-	# 		'ListingDate','YearBuilt', 'YearRenovated','PropertyType','SubType','Transport', \
-	# 		'Utilities','Amenities']]
-
 
 
 	return df.reset_index(drop=True)
