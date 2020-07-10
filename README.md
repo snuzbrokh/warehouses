@@ -17,12 +17,13 @@ Below is a brief description of each directory in this repo:
 ## Exploratory Data Products
 
 Warehouse Connectivity By City:
-This is visualization of average warehouse lease rates per city in the United States. 
+This is an [interactive visualization](https://chart-studio.plotly.com/~snuzbrokh/34#plot) of average warehouse lease rates per city in the United States: Interact with it 
 
-[visualization](https://chart-studio.plotly.com/~snuzbrokh/34#plot)
+![pic](https://github.com/snuzbrokh/warehouses/blob/master/pics/interactive_map.png)
 
 
 Correlation Dashboard by State:
-Lease rates across the US vary with respect to different features. Being near the coastal ports fetches high rates in California and New York but has no sway in Kansas or Oklahoma. How can we see what features correlate to higher rates? I created this dashboard to answer this question. 
+Lease rates across the US vary with respect to different features. Being near the coastal ports fetches high rates in California and New York but has no sway in Kansas or Oklahoma. How can we see what features correlate to higher rates? I created this [dashboard](https://chart-studio.plotly.com/~snuzbrokh/108#plot) to answer this question. 
 
-[visualization](https://chart-studio.plotly.com/~snuzbrokh/108#plot)
+
+![pic](https://github.com/snuzbrokh/warehouses/blob/master/pics/correlation_dashboard.png)
