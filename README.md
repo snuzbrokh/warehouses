@@ -17,7 +17,7 @@ Below is a brief description of each directory in this repo:
 ## Exploratory Data Products
 
 Warehouse Connectivity By City:
-This is an [interactive visualization](https://chart-studio.plotly.com/~snuzbrokh/34#plot) of average warehouse lease rates per city in the United States: Interact with it 
+This is an [interactive visualization](https://chart-studio.plotly.com/~snuzbrokh/34#plot) of average warehouse lease rates per location in the United States. The user can filter locations by the average price of warehouse leases as well as toggling options to see nearby ports and airports. The user can also toggle "Transport Length" which gives a measure of the average distance from that location to nearby transport hubs. 
 
 ![pic](https://github.com/snuzbrokh/warehouses/blob/master/pics/interactive_map.png)
 
