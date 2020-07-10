@@ -3,7 +3,7 @@
 This project focuses on exploratory data analysis on warehouse lease data obtained from an online leasing site. 
 The scope covers all 50 states with over 9,000 unique listings. 
 
-[Link to the blog post](https://nycdatascience.com/blog/student-works/fitting-towards-ames-2/)
+[Link to the blog post](https://nycdatascience.com/blog/student-works/warehouse-leasing/)
 
 
 ## Brief Directory Descriptions
