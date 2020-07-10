@@ -1,31 +1,14 @@
-This project focuses on exploratory data analysis on warehouse lease data obtained from an online site. 
+# Warehouse Lease Rates: WebScraping Project
+
+This project focuses on exploratory data analysis on warehouse lease data obtained from an online leasing site. 
 The scope covers all 50 states with over 9,000 unique listings. 
 
-## Warehouse Scraper
+[Link to the blog post](https://nycdatascience.com/blog/student-works/fitting-towards-ames-2/)
 
-Contained in the warehouses folder. This is the tool I used for scraping.
 
-## EDA
+## Brief Directory Descriptions
 
-Contained in the analysis folder:
-
-### warehouse_EDA.ipynb
-The notebook contains a guided walk through my analysis
-
-### clean.py 
-This program cleans and organizes the raw data. 
-
-### data
-This folder contains the output from the scraping tool. 
-
-### extra-data
-This folder holds external and generated data that is used as an aid in visualization and analysis.
-
-### findFeatures.py
-This program finds features from the listing using textual analysis and regular expressions. 
-
-### pics
-This folder holds pictures.
-
-### wh_metrics.py
-This program contains a number of functions that I use to calculate metrics. 
+Below is a brief description of each directory in this repo:
+ - [data](https://github.com/snuzbrokh/warehouses/tree/master/data): Contains data on all active warehouse listings in the US at the time of scraping.
+ - [notebook](https://github.com/snuzbrokh/warehouses/tree/master/notebook): Contains entire walkthrough of analysis in warehouses.ipynb and generated data.
+ - [web_scraper](https://github.com/snuzbrokh/warehouses/tree/master/web_scraper): Contains code for scraper.
